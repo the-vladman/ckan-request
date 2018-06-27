@@ -4,7 +4,10 @@ import os
 from dotenv import load_dotenv
 import pymongo
 import ckanapi
+import sys
 
+reload(sys)
+sys.setdefaultencoding('utf8')
 load_dotenv()
 
 CKAN_HOST = os.getenv('CKAN_HOST')
