@@ -58,6 +58,13 @@ def getTagsFromDataset(dataset):
     else:
         return []
 
+def getDescriptionFromResource(resource):
+    if 'description' in resource:
+        print resource['description']
+        return resource['description']
+    else:
+        return ''
+
 def getOrganizationFromDataset(dataset):
     if dataset['organization']:
         return dataset['organization']
@@ -76,8 +83,9 @@ for layer in layersArray:
         datasetCKAN = getDatasetFromCKAN(remote, resourceCKAN['package_id'])
         category = getCategoryFromDataset(datasetCKAN['extras'])
         tags = getTagsFromDataset(datasetCKAN)
+        description = getDescriptionFromResource(resourceCKAN)
         organization = getOrganizationFromDataset(datasetCKAN)
-        layerMetadata = {'name_resource':resourceCKAN['name'], 'tags': tags, 'organization': organization, 'category': category}
+        layerMetadata = {'name_resource':resourceCKAN['name'], 'tags': tags, 'description': description, 'organization': organization, 'category': category}
         layerAdd.update(layerMetadata)
     geoCollection.save(layerAdd)
     print COUNTER , 'Layer Added', layerAdd['ckan']
