@@ -52,7 +52,7 @@ def getCategoryFromDataset(extras):
     return ''
 
 def getTagsFromDataset(dataset):
-    if dataset['tags']:
+    if 'tags' in dataset:
         return dataset['tags']
     else:
         return []
