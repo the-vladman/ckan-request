@@ -18,6 +18,7 @@ GEOSERVER_PASSWORD= os.getenv('GEOSERVER_PASSWORD')
 MONGO_URL= os.getenv('MONGO_URL')
 MONGO_PORT= os.getenv('MONGO_PORT')
 
+COUNTER = 0
 mongoClient = pymongo.MongoClient(MONGO_URL, int(MONGO_PORT))
 dbBuda = mongoClient.buda
 geoCollection = dbBuda['ckan-geoserver']
@@ -65,6 +66,7 @@ def getOrganizationFromDataset(dataset):
 
 
 for layer in layersArray:
+    COUNTER += 1
     name = layer['name']
     nameSliced = name[0:36]
     nameReplaced = nameSliced.replace('_', '-')
@@ -77,5 +79,5 @@ for layer in layersArray:
         organization = getOrganizationFromDataset(datasetCKAN)
         layerMetadata = {'name_resource':resourceCKAN['name'], 'tags': tags, 'organization': organization, 'category': category}
         layerAdd.update(layerMetadata)
-    print layerAdd
     geoCollection.save(layerAdd)
+    print COUNTER , 'Layer Added', layerAdd['ckan']
