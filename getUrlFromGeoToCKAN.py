@@ -49,8 +49,7 @@ def getCategoryFromDataset(extras):
     for e in extras:
         if e['key'] == 'theme':
             return e['value']
-        else:
-            return 'no'
+    return ''
 
 def getTagsFromDataset(dataset):
     if dataset['tags']:
@@ -69,7 +68,7 @@ def getOrganizationFromDataset(dataset):
     if dataset['organization']:
         return dataset['organization']
     else:
-        return 'no-organization'
+        return ''
 
 
 for layer in layersArray:
