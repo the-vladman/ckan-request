@@ -58,6 +58,15 @@ coverage.xml
 # CSV
 *.csv
 
+# textFiles
+*.txt
+
+# DUMPS
+*.dump
+
+# JSON
+*.json
+
 # Django stuff:
 *.log
 local_settings.py
