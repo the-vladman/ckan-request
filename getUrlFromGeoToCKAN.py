@@ -69,14 +69,24 @@ def getOrganizationFromDataset(dataset):
     else:
         return ''
 
+def getLayerType(name):
+    try:
+        response = requests.get(GEOSERVER_URL + '/' + name, headers=headers, auth=(GEOSERVER_USER, GEOSERVER_PASSWORD)).json()
+        layerInfo = response['layer']
+        layerType = layerInfo['defaultStyle']['name']
+        return layerType
+    except requests.exceptions as error:
+        print error
+        return 'no-type'
 
 for layer in layersArray:
     COUNTER += 1
     name = layer['name']
+    typelayer = getLayerType(layer['name'])
     nameSliced = name[0:36]
     nameReplaced = nameSliced.replace('_', '-')
     resourceCKAN = getResourceFromCKAN(remote, nameReplaced)
-    layerAdd = {'ckan':nameReplaced, 'geoserver':layer['name']}
+    layerAdd = {'ckan':nameReplaced, 'geoserver':layer['name'], 'type': typelayer}
     if resourceCKAN:
         datasetCKAN = getDatasetFromCKAN(remote, resourceCKAN['package_id'])
         category = getCategoryFromDataset(datasetCKAN['extras'])
