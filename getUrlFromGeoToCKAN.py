@@ -59,7 +59,6 @@ def getTagsFromDataset(dataset):
 
 def getDescriptionFromResource(resource):
     if 'description' in resource:
-        print resource['description']
         return resource['description']
     else:
         return ''
